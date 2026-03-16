@@ -208,6 +208,11 @@ section    { overflow-x: hidden; }
   max-width: min(480px, 100%);
 }
 
+/* ─── Grid layout classes (desktop) ───────────────────────────── */
+.about-grid   { grid-template-columns: 1fr 1.7fr; }
+.contact-grid { grid-template-columns: 1fr 1.4fr; }
+.process-wrap { grid-template-columns: 1fr 1fr; }
+
 /* ═══════════════════════════════════════════
    NAVBAR
 ═══════════════════════════════════════════ */
@@ -566,7 +571,7 @@ section    { overflow-x: hidden; }
 }
 .project-header::after {
   content: ''; position: absolute;
-  bottom: 0; left: 0; right: 0; height: 60px;
+  bottom: 0; left: 0; right: 0; height: 35px;
   background: linear-gradient(to bottom, transparent, var(--bg-2));
 }
 .ptag {
@@ -722,9 +727,9 @@ section    { overflow-x: hidden; }
 }
 
 @media (max-width: 768px) {
-  .about-grid   { grid-template-columns: 1fr !important; }
-  .contact-grid { grid-template-columns: 1fr !important; }
-  .process-wrap { grid-template-columns: 1fr !important; }
+  .about-grid,
+  .contact-grid,
+  .process-wrap { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px) {
@@ -743,6 +748,14 @@ section    { overflow-x: hidden; }
    No more per-element !important padding overrides              */
 @media (max-width: 480px) {
   :root { --page-x: 1.1rem; }
+
+  /* Contact grid children must not overflow their column */
+  .contact-grid > * {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
 
   /* Card internal padding */
   .contact-info-card,
