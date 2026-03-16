@@ -729,7 +729,7 @@ section    { overflow-x: hidden; }
 @media (max-width: 768px) {
   .about-grid,
   .contact-grid,
-  .process-wrap { grid-template-columns: 1fr; }
+  .process-wrap { grid-template-columns: 1fr !important; }
 }
 
 @media (max-width: 600px) {
