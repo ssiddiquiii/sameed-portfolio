@@ -2,7 +2,7 @@
 
 Personal portfolio website built with **React** and **Vite** to showcase my projects, services, and development process as a MERN Stack Developer.
 
-**Live Site:** https://samedsiddiqui.me
+**Live Site:** https://sameedsiddiqui.me
 
 ---
 
