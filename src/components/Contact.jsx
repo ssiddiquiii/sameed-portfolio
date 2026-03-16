@@ -1,4 +1,5 @@
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 /* ── SVG Icons ─────────────────────────────────────────────────── */
 const EmailIcon = () => (
@@ -61,7 +62,7 @@ const CONTACT_ITEMS = [
   {
     icon: <EmailIcon />,
     label: "Email",
-    value: "sameed@samedsiddiqui.me",
+    value: "sameed@sameedsiddiqui.me",
     href: "mailto:sameed@samedsiddiqui.me",
     accent: "#60A5FA",
     accentBg: "rgba(96,165,250,0.1)",
@@ -77,8 +78,8 @@ const CONTACT_ITEMS = [
   {
     icon: <GlobeIcon />,
     label: "Portfolio",
-    value: "samedsiddiqui.me",
-    href: "https://samedsiddiqui.me",
+    value: "sameedsiddiqui.me",
+    href: "https://sameedsiddiqui.me",
     accent: "#34D399",
     accentBg: "rgba(52,211,153,0.1)",
   },
@@ -101,21 +102,51 @@ export default function Contact() {
     budget: "",
     message: "",
   });
+
+  // Added "loading" state for API feedback
   const [status, setStatus] = useState("idle");
 
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  const submit = () => {
+  /* ── Core Execution Logic ─────────────────────────────────────── */
+  const submit = async (e) => {
+    e.preventDefault();
+
     if (!form.name || !form.email || !form.message) {
       setStatus("error");
       setTimeout(() => setStatus("idle"), 2500);
       return;
     }
-    setStatus("success");
-    setTimeout(() => {
-      setStatus("idle");
-      setForm({ name: "", email: "", project: "", budget: "", message: "" });
-    }, 3500);
+
+    setStatus("loading");
+
+    const templateParams = {
+      name: form.name,
+      email: form.email,
+      project: form.project,
+      budget: form.budget,
+      message: form.message,
+      time: new Date().toLocaleString(),
+    };
+
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+      );
+
+      setStatus("success");
+      setTimeout(() => {
+        setStatus("idle");
+        setForm({ name: "", email: "", project: "", budget: "", message: "" });
+      }, 3500);
+    } catch (error) {
+      console.error("Jarvis System Error - EmailJS Dispatch Failed:", error);
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 3500);
+    }
   };
 
   return (
@@ -205,6 +236,7 @@ export default function Contact() {
                       e.currentTarget.style.background = c.accentBg;
                     }}
                     onMouseOut={(e) => {
+                      if (!c.href) return;
                       e.currentTarget.style.borderColor = "var(--border)";
                       e.currentTarget.style.transform = "translateX(0)";
                       e.currentTarget.style.background = "var(--bg)";
@@ -460,17 +492,22 @@ export default function Contact() {
             <button
               className={`form-submit${status === "success" ? " success" : ""}`}
               onClick={submit}
+              disabled={status === "loading" || status === "success"}
               style={
                 status === "error"
                   ? { background: "#ef4444", boxShadow: "none" }
-                  : undefined
+                  : status === "loading"
+                    ? { opacity: 0.7, cursor: "not-allowed" }
+                    : undefined
               }
             >
-              {status === "success"
-                ? "✓ Message Sent! I'll be in touch."
-                : status === "error"
-                  ? "Please fill all required fields."
-                  : "Send Message →"}
+              {status === "loading"
+                ? "Sending..."
+                : status === "success"
+                  ? "✓ Message Sent! I'll be in touch."
+                  : status === "error"
+                    ? "Please fill all required fields."
+                    : "Send Message →"}
             </button>
           </div>
         </div>
