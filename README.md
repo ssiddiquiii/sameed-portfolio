@@ -1,47 +1,29 @@
 # Sameed Siddiqui — Portfolio
 
-<div align="center">
+Personal portfolio website built with **React** and **Vite** to showcase my projects, services, and development process as a MERN Stack Developer.
 
-![Status](https://img.shields.io/badge/Status-Live-34D399?style=for-the-badge)
-![React](https://img.shields.io/badge/React-18-60A5FA?style=for-the-badge&logo=react)
-![Vite](https://img.shields.io/badge/Vite-5-F59E0B?style=for-the-badge&logo=vite)
-![Tailwind](https://img.shields.io/badge/Tailwind-3-60A5FA?style=for-the-badge&logo=tailwindcss)
-
-**MERN Stack Developer · Karachi, Pakistan**
-
-[🌐 Live Site](https://samedsiddiqui.me) · [🐙 GitHub](https://github.com/ssiddiquiii) · [📧 Contact](mailto:sameed@samedsiddiqui.me)
-
-</div>
-
----
-
-## About
-
-Personal portfolio website showcasing my services, projects, and engineering process as a MERN Stack Developer. Built with a focus on clean architecture, full responsiveness, and production-grade code quality.
+**Live Site:** https://samedsiddiqui.me
 
 ---
 
 ## Tech Stack
 
-| Tool                      | Version | Purpose                          |
-|---------------------------|---------|----------------------------------|
-| React                     | 18      | UI component library             |
-| Vite                      | 5       | Build tool & dev server          |
-| Tailwind CSS              | 3       | Utility-first styling            |
-| CSS Custom Properties     | —       | Light / dark theme tokens        |
-| IntersectionObserver API  | —       | Scroll-triggered animations      |
+* React 18
+* Vite 5
+* Tailwind CSS 3
+* CSS Custom Properties (light / dark theme)
+* IntersectionObserver API
 
 ---
 
 ## Features
 
-- ⚡ **Blazing fast** — Vite build, zero unnecessary dependencies
-- 🌙 **Light / Dark mode** — toggled from navbar, persisted in `localStorage`
-- 📱 **Fully responsive** — mobile first, fluid `clamp()` sizing from 320px to 4K
-- 🎞 **Scroll animations** — reveal on enter via IntersectionObserver
-- 🍱 **Bento grid** services layout
-- ♿ **Accessible** — semantic HTML, keyboard navigation, ARIA labels
-- 🚀 **Vercel-ready** — `vercel.json` SPA routing included out of the box
+* Fully responsive (mobile-first layout)
+* Light / Dark mode with `localStorage` persistence
+* Scroll reveal animations
+* Accessible semantic HTML structure
+* Optimized production build
+* Ready for Vercel deployment
 
 ---
 
@@ -49,122 +31,90 @@ Personal portfolio website showcasing my services, projects, and engineering pro
 
 ```
 portfolio/
-├── public/                     # Static assets (favicon, OG image)
+├── public/
 ├── src/
-│   ├── components/             # One component file per section
-│   │   ├── Navbar.jsx          # Sticky nav + animated hamburger menu
-│   │   ├── Hero.jsx            # Landing section with animated orbs
-│   │   ├── About.jsx           # Bio card + info rows
-│   │   ├── Stack.jsx           # Tech pills + skill progress bars
-│   │   ├── Services.jsx        # Bento grid service cards
-│   │   ├── Projects.jsx        # Project cards with GitHub/live links
-│   │   ├── Process.jsx         # Engineering process timeline
-│   │   ├── Contact.jsx         # Contact form + contact info
-│   │   ├── Footer.jsx          # Footer with social links
-│   │   └── ScrollTop.jsx       # Scroll to top floating button
+│   ├── components/
 │   ├── context/
-│   │   └── ThemeContext.jsx    # Light/dark mode state + localStorage
 │   ├── hooks/
-│   │   └── useScrollReveal.js  # IntersectionObserver scroll animations
 │   ├── data/
-│   │   └── index.js            # All static content lives here
-│   ├── App.jsx                 # Root layout, wires all sections
-│   ├── main.jsx                # React entry point
-│   └── index.css               # Design tokens + all global styles
-├── index.html                  # Vite HTML shell + Google Fonts
+│   ├── App.jsx
+│   └── main.jsx
+├── index.html
 ├── vite.config.js
 ├── tailwind.config.js
-├── postcss.config.js
-├── vercel.json                 # SPA routing fix for Vercel
-├── .gitignore
-└── package.json
+├── package.json
 ```
 
 ---
 
 ## Local Development
 
-```bash
-# 1. Clone the repository
+Clone the repository and run the development server.
+
+```
 git clone https://github.com/ssiddiquiii/portfolio.git
 cd portfolio
-
-# 2. Install dependencies
 npm install
-
-# 3. Start the dev server
 npm run dev
+```
 
-# 4. Open in browser
-# → http://localhost:5173
+Application runs at:
+
+```
+http://localhost:5173
 ```
 
 ---
 
 ## Production Build
 
-```bash
-# Build for production
-npm run build
+Build and preview the production version locally.
 
-# Preview production build locally before deploying
+```
+npm run build
 npm run preview
 ```
 
-Output is generated in the `/dist` folder — ready for deployment.
+Production files are generated in the `dist` folder.
 
 ---
 
-## Deploying to Vercel
+## Deployment
 
-This project is deployed on [Vercel](https://vercel.com) with automatic CI/CD on every push.
+This project is deployed using **Vercel**.
 
-**First-time setup:**
+To deploy your own version:
 
-1. Push this repo to GitHub
-2. Go to [vercel.com](https://vercel.com) → **Add New Project**
-3. Import the `portfolio` repository
-4. Vercel auto-detects Vite — no manual config needed
-5. Click **Deploy** ✓
+1. Push the repository to GitHub
+2. Import it into Vercel
+3. Deploy
 
-**Every future update:**
-
-```bash
-git add .
-git commit -m "feat: your change here"
-git push
-# Vercel auto-redeploys on every push to main ✓
-```
+Vercel automatically detects the Vite configuration.
 
 ---
 
-## Updating Content
+## Content Updates
 
-All site content — projects, tech stack, services, contact info — is centralised in one file:
+All portfolio content (projects, services, tech stack, etc.) is managed in:
 
 ```
 src/data/index.js
 ```
 
-Edit that file and changes propagate to every component automatically. No need to touch individual component files for content updates.
+Update this file to modify site content.
 
 ---
 
-## Contact
+## Author
 
 **Sameed Siddiqui**
+MERN Stack Developer — Karachi, Pakistan
 
-| | |
-|---|---|
-| 🌐 Website | [samedsiddiqui.me](https://samedsiddiqui.me) |
-| 🐙 GitHub | [github.com/ssiddiquiii](https://github.com/ssiddiquiii) |
-| 📧 Email | [sameed@samedsiddiqui.me](mailto:sameed@samedsiddiqui.me) |
-| 📍 Location | Karachi, Pakistan |
+GitHub: https://github.com/ssiddiquiii
+Website: https://samedsiddiqui.me
 
 ---
 
 ## License
 
-© 2025 Sameed Siddiqui. All rights reserved.
-
-This repository contains personal portfolio source code and is **not open for reuse, redistribution, or use as a template** without explicit written permission from the author.
+This repository contains personal portfolio source code and is not intended for reuse, redistribution, or use as a template without permission.
