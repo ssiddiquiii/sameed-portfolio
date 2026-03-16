@@ -12,6 +12,8 @@
   --radius-md: 14px;
   --radius-lg: 22px;
   --radius-xl: 32px;
+  /* Single source of truth for horizontal page spacing */
+  --page-x: clamp(1.25rem, 5vw, 3rem);
 }
 
 [data-theme="dark"] {
@@ -87,9 +89,19 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   width: 100%;
   max-width: 1180px;
   margin: 0 auto;
-  padding: 0 clamp(1.25rem, 5vw, 3rem);
+  padding: 0 var(--page-x);
 }
-.section { padding: clamp(4rem, 8vw, 8rem) 0; }
+.section { padding: clamp(3rem, 8vw, 8rem) 0; }
+
+/* Prevent any horizontal overflow site-wide */
+html, body { overflow-x: hidden; }
+section    { overflow-x: hidden; }
+
+/* Grid children — prevent overflow beyond parent */
+.bento-grid > *,
+.projects-grid > *,
+.skills-grid > *,
+.stack-strip > * { min-width: 0; }
 
 /* ═══════════════════════════════════════════
    SCROLL REVEAL
@@ -193,7 +205,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   font-size: 1rem;
   color: var(--text-2);
   line-height: 1.8;
-  max-width: 480px;
+  max-width: min(480px, 100%);
 }
 
 /* ═══════════════════════════════════════════
@@ -201,7 +213,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 ═══════════════════════════════════════════ */
 .navbar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  padding: 0 clamp(1.25rem, 5vw, 3rem);
+  padding: 0 var(--page-x);
   height: 64px;
   display: flex; align-items: center; justify-content: space-between;
   background: var(--nav-bg);
@@ -319,7 +331,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 .hero {
   min-height: 100svh;
   display: grid; place-items: center;
-  padding: calc(64px + 3rem) clamp(1.25rem, 5vw, 3rem) 4rem;
+  padding: calc(64px + 3rem) var(--page-x) 4rem;
   position: relative; overflow: hidden;
 }
 .hero-grid-bg {
@@ -606,8 +618,9 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 ═══════════════════════════════════════════ */
 .contact-info-card {
   background: var(--bg-2); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: clamp(1.5rem, 3vw, 2.5rem);
+  border-radius: var(--radius-lg); padding: clamp(1.25rem, 3vw, 2.5rem);
   position: relative; overflow: hidden;
+  width: 100%; min-width: 0; box-sizing: border-box;
 }
 .contact-info-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
@@ -622,6 +635,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   margin-bottom: 0.75rem;
   text-decoration: none; color: inherit;
   transition: all 0.2s;
+  min-width: 0; overflow: hidden;
 }
 .contact-item:hover { border-color: var(--border-h); transform: translateX(4px); }
 .ci-icon {
@@ -632,15 +646,16 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 }
 .contact-form-card {
   background: var(--bg-2); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: clamp(1.5rem, 3vw, 2.5rem);
+  border-radius: var(--radius-lg); padding: clamp(1.25rem, 3vw, 2.5rem);
+  width: 100%; min-width: 0; box-sizing: border-box;
 }
 .form-input {
-  width: 100%; padding: 0.75rem 1rem;
+  width: 100%; max-width: 100%; padding: 0.75rem 1rem;
   background: var(--bg); border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   color: var(--text-1);
   font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
-  outline: none;
+  outline: none; box-sizing: border-box;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.1); }
@@ -663,7 +678,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 ═══════════════════════════════════════════ */
 .footer {
   background: var(--bg-2); border-top: 1px solid var(--border);
-  padding: 2rem clamp(1.25rem, 5vw, 3rem);
+  padding: 2rem var(--page-x);
 }
 .social-btn {
   width: 38px; height: 38px;
@@ -680,11 +695,11 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
    SCROLL TO TOP
 ═══════════════════════════════════════════ */
 .scroll-top {
-  position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
-  width: 44px; height: 44px;
+  position: fixed; bottom: 1rem; right: 1rem; z-index: 200;
+  width: 38px; height: 38px;
   background: var(--accent); border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.2rem; color: #fff;
+  font-size: 0.95rem; color: #fff;
   cursor: pointer; border: none;
   box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.4);
   opacity: 0; transform: translateY(10px);
@@ -697,6 +712,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 /* ═══════════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════════ */
+
 @media (max-width: 900px) {
   .nav-links-desktop, .btn-hire { display: none !important; }
   .hamburger { display: flex !important; }
@@ -704,23 +720,73 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   .bento-card.span-8 { grid-column: span 12; }
   .bento-card.span-6 { grid-column: span 12; }
 }
+
 @media (max-width: 768px) {
   .about-grid   { grid-template-columns: 1fr !important; }
   .contact-grid { grid-template-columns: 1fr !important; }
   .process-wrap { grid-template-columns: 1fr !important; }
 }
+
 @media (max-width: 600px) {
   .bento-card.span-4,
   .bento-card.span-6,
   .bento-card.span-8,
   .bento-card.span-12 { grid-column: span 12; }
-  .form-row { grid-template-columns: 1fr !important; }
-  .bento-grid { grid-auto-rows: auto; }
+  .form-row    { grid-template-columns: 1fr !important; }
+  .bento-grid  { grid-auto-rows: auto; }
   .timeline::before { left: 20px; }
   .timeline-dot { width: 40px; height: 40px; }
 }
-@media (max-width: 380px) {
-  .hero-cta { flex-direction: column; align-items: center; }
-  .cta-primary, .cta-secondary { width: 100%; justify-content: center; }
-  .hero-stats { flex-direction: column; gap: 1rem; }
+
+/* ─── 320px → 480px: small phones ─────────────────────────────────
+   ONE variable change cascades to container, navbar, footer, hero
+   No more per-element !important padding overrides              */
+@media (max-width: 480px) {
+  :root { --page-x: 1.1rem; }
+
+  /* Card internal padding */
+  .contact-info-card,
+  .contact-form-card { padding: 1.25rem; }
+  .about-card        { padding: 1.25rem; }
+  .bento-card        { padding: 1.1rem; }
+  .skill-bar-card    { padding: 1rem; }
+
+  /* Contact row — allow long emails to wrap */
+  .contact-item      { gap: 0.6rem; }
+  .ci-val            { font-size: 0.8rem; overflow-wrap: break-word; word-break: break-all; min-width: 0; }
+
+  /* Tech pills */
+  .tech-pill         { font-size: 0.78rem; padding: 0.45rem 0.8rem; }
+
+  /* Typography */
+  .section-title     { font-size: clamp(1.75rem, 7vw, 2.5rem); }
+  .section-sub       { font-size: 0.9rem; max-width: 100%; }
+
+  /* Hero badge — stop it from overflowing */
+  .hero-badge        { font-size: 0.68rem; padding: 0.3rem 0.85rem; white-space: nowrap; }
+}
+
+/* ─── 390px: iPhone 14 Pro / common Android ───────────────────── */
+@media (max-width: 390px) {
+  .hero-cta          { flex-direction: column; align-items: stretch; }
+  .cta-primary,
+  .cta-secondary     { width: 100%; justify-content: center; text-align: center; }
+  .hero-stats        { flex-direction: column; gap: 1rem; }
+  .hero-stats > div:not(:last-child) {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+  }
+}
+
+/* ─── 320px: iPhone SE / smallest supported ───────────────────── */
+@media (max-width: 320px) {
+  :root   { --page-x: 0.9rem; }
+  .section { padding: 2.5rem 0; }
+  .hero-badge { font-size: 0.6rem; }
+  .contact-info-card,
+  .contact-form-card { padding: 1rem; border-radius: var(--radius-md); }
+  .contact-item      { padding: 0.65rem 0.75rem; }
+  .form-input        { padding: 0.6rem 0.75rem; font-size: 0.85rem; }
+  .form-submit       { font-size: 0.85rem; }
 }
