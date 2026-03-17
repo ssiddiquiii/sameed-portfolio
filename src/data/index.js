@@ -193,8 +193,8 @@ export const CONTACT_ITEMS = [
   {
     icon: "📧",
     label: "Email",
-    value: "sameed@sameedsiddiqui.me",
-    href: "mailto:sameed@sameedsiddiqui.me",
+    value: "sameedsiddiqui9@gmail.com",
+    href: "mailto:sameedsiddiqui9@gmail.com",
   },
   {
     icon: "🐙",

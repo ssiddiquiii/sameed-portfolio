@@ -51,8 +51,8 @@ const CONTACT_ITEMS = [
   {
     icon: <EmailIcon />,
     label: "Email",
-    value: "sameed@sameedsiddiqui.me",
-    href: "mailto:sameed@sameedsiddiqui.me",
+    value: "sameedsiddiqui9@gmail.com",
+    href: "mailto:sameedsiddiqui9@gmail.com",
     accent: "#60A5FA",
     accentBg: "rgba(96,165,250,0.1)",
   },

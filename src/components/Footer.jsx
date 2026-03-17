@@ -37,7 +37,7 @@ const socials = [
     hoverColor: "#0A66C2",
   },
   {
-    href: "mailto:sameed@sameedsiddiqui.me",
+    href: "mailto:sameedsiddiqui9@gmail.com",
     icon: <EmailIcon />,
     label: "Email",
     hoverBg: "rgba(52,211,153,0.1)",
