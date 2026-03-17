@@ -24,20 +24,9 @@ const GitHubIcon = () => (
   </svg>
 );
 
-const GlobeIcon = () => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    width="20"
-    height="20"
-  >
-    <circle cx="12" cy="12" r="10" />
-    <path d="M2 12h20" />
-    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+const LinkedInIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
   </svg>
 );
 
@@ -63,9 +52,17 @@ const CONTACT_ITEMS = [
     icon: <EmailIcon />,
     label: "Email",
     value: "sameed@sameedsiddiqui.me",
-    href: "mailto:sameed@samedsiddiqui.me",
+    href: "mailto:sameed@sameedsiddiqui.me",
     accent: "#60A5FA",
     accentBg: "rgba(96,165,250,0.1)",
+  },
+  {
+    icon: <LinkedInIcon />,
+    label: "LinkedIn",
+    value: "linkedin.com/in/ssiddiquii",
+    href: "https://www.linkedin.com/in/ssiddiquii/",
+    accent: "#0A66C2",
+    accentBg: "rgba(10,102,194,0.1)",
   },
   {
     icon: <GitHubIcon />,
@@ -74,14 +71,6 @@ const CONTACT_ITEMS = [
     href: "https://github.com/ssiddiquiii",
     accent: "var(--text-1)",
     accentBg: "var(--surface)",
-  },
-  {
-    icon: <GlobeIcon />,
-    label: "Portfolio",
-    value: "sameedsiddiqui.me",
-    href: "https://sameedsiddiqui.me",
-    accent: "#34D399",
-    accentBg: "rgba(52,211,153,0.1)",
   },
   {
     icon: <MapPinIcon />,
@@ -131,10 +120,10 @@ export default function Contact() {
 
     try {
       await emailjs.send(
-        import.meta.env.EMAILJS_SERVICE_ID,
-        import.meta.env.EMAILJS_TEMPLATE_ID,
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         templateParams,
-        import.meta.env.EMAILJS_PUBLIC_KEY,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
       );
 
       setStatus("success");

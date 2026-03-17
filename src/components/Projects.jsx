@@ -1,3 +1,4 @@
+import { useRef, useState, useEffect, useCallback } from "react";
 import { PROJECTS } from "../data";
 
 /* ── Project SVG Icons ─────────────────────────────────────────── */
@@ -75,6 +76,19 @@ const ActivityIcon = () => (
   </svg>
 );
 
+/* ── Arrow Icons ───────────────────────────────────────────────── */
+const ChevronLeft = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="15 18 9 12 15 6" />
+  </svg>
+);
+
+const ChevronRight = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="9 6 15 12 9 18" />
+  </svg>
+);
+
 const ICON_MAP = {
   video: {
     component: <VideoIcon />,
@@ -103,6 +117,69 @@ const ICON_MAP = {
 };
 
 export default function Projects() {
+  const trackRef = useRef(null);
+  const [activePage, setActivePage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(false);
+
+  /* ── Calculate pages & sync with scroll ──────────────────────── */
+  const handleScroll = useCallback(() => {
+    const el = trackRef.current;
+    if (!el) return;
+
+    const scrollLeft = el.scrollLeft;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+
+    setAtStart(scrollLeft <= 2);
+    setAtEnd(scrollLeft >= maxScroll - 2);
+
+    // How many cards fit in view?
+    const cards = el.querySelectorAll(".project-card");
+    if (!cards.length) return;
+    const cardWidth = cards[0].offsetWidth + 20; // card + gap
+    const visible = Math.max(1, Math.round(el.clientWidth / cardWidth));
+    const pages = Math.max(1, cards.length - visible + 1);
+    setTotalPages(pages);
+
+    // Which page are we on?
+    const page = Math.min(
+      pages - 1,
+      Math.round(scrollLeft / cardWidth)
+    );
+    setActivePage(page);
+  }, []);
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    handleScroll();
+    return () => {
+      el.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [handleScroll]);
+
+  /* ── Navigation helpers ──────────────────────────────────────── */
+  const scrollToPage = (page) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const cards = el.querySelectorAll(".project-card");
+    if (!cards.length) return;
+    const cardWidth = cards[0].offsetWidth + 20;
+    el.scrollTo({ left: page * cardWidth, behavior: "smooth" });
+  };
+
+  const prev = () => {
+    if (activePage > 0) scrollToPage(activePage - 1);
+  };
+
+  const next = () => {
+    if (activePage < totalPages - 1) scrollToPage(activePage + 1);
+  };
+
   return (
     <section
       id="projects"
@@ -119,169 +196,181 @@ export default function Projects() {
           </p>
         </div>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns:
-              "repeat(auto-fill,minmax(min(100%,340px),1fr))",
-            gap: "1.25rem",
-            marginTop: "3rem",
-          }}
-        >
-          {PROJECTS.map((p, i) => {
-            const iconKey = Object.keys(ICON_MAP)[i] || "activity";
-            const icon = ICON_MAP[iconKey];
-            return (
-              <div key={p.num} className={`project-card reveal delay-${i + 1}`}>
-                {/* Header — SVG icon centered on gradient bg */}
-                <div className="project-header" style={p.bgStyle}>
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      background: `radial-gradient(circle at 50% 60%, ${p.glowColor}, transparent 65%)`,
-                    }}
-                  />
-                  <div
-                    style={{
-                      position: "relative",
-                      zIndex: 1,
-                      width: "72px",
-                      height: "72px",
-                      borderRadius: "18px",
-                      background: icon.bg,
-                      border: `1px solid ${icon.border}`,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: icon.accent,
-                    }}
-                  >
-                    {icon.component}
-                  </div>
-                </div>
-
-                {/* Body */}
-                <div
-                  style={{
-                    padding: "1.5rem",
-                    flex: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      marginBottom: "0.6rem",
-                    }}
-                  >
-                    <span
+        {/* Slider wrapper */}
+        <div className="slider-wrapper reveal" style={{ marginTop: "3rem" }}>
+          {/* Scrollable track */}
+          <div className="projects-slider" ref={trackRef}>
+            {PROJECTS.map((p, i) => {
+              const iconKey = Object.keys(ICON_MAP)[i] || "activity";
+              const icon = ICON_MAP[iconKey];
+              return (
+                <div key={p.num} className="project-card">
+                  {/* Header — SVG icon centered on gradient bg */}
+                  <div className="project-header" style={p.bgStyle}>
+                    <div
                       style={{
-                        fontFamily: "Fira Code, monospace",
-                        fontSize: "0.68rem",
-                        color: "var(--text-3)",
+                        position: "absolute",
+                        inset: 0,
+                        background: `radial-gradient(circle at 50% 60%, ${p.glowColor}, transparent 65%)`,
+                      }}
+                    />
+                    <div
+                      style={{
+                        position: "relative",
+                        zIndex: 1,
+                        width: "72px",
+                        height: "72px",
+                        borderRadius: "18px",
+                        background: icon.bg,
+                        border: `1px solid ${icon.border}`,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: icon.accent,
                       }}
                     >
-                      {p.num}
-                    </span>
-                    <span
+                      {icon.component}
+                    </div>
+                  </div>
+
+                  {/* Body */}
+                  <div
+                    style={{
+                      padding: "1.5rem",
+                      flex: 1,
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <div
                       style={{
                         display: "flex",
                         alignItems: "center",
-                        gap: "0.3rem",
-                        fontSize: "0.7rem",
-                        fontWeight: 500,
-                        color:
-                          p.status === "Building"
-                            ? "var(--accent)"
-                            : p.status === "Live"
-                              ? "var(--accent-2)"
-                              : "var(--text-3)",
+                        justifyContent: "space-between",
+                        marginBottom: "0.6rem",
                       }}
                     >
                       <span
                         style={{
-                          width: "5px",
-                          height: "5px",
-                          borderRadius: "50%",
-                          background: "currentColor",
-                          display: "inline-block",
+                          fontFamily: "Fira Code, monospace",
+                          fontSize: "0.68rem",
+                          color: "var(--text-3)",
                         }}
-                      />
-                      {p.status}
-                    </span>
-                  </div>
-
-                  <h3
-                    style={{
-                      fontFamily: "Bricolage Grotesque, sans-serif",
-                      fontSize: "1.15rem",
-                      fontWeight: 700,
-                      letterSpacing: "-0.02em",
-                      marginBottom: "0.6rem",
-                      color: "var(--text-1)",
-                    }}
-                  >
-                    {p.title}
-                  </h3>
-                  <p
-                    style={{
-                      fontSize: "0.85rem",
-                      color: "var(--text-2)",
-                      lineHeight: 1.75,
-                      marginBottom: "1rem",
-                      flex: 1,
-                    }}
-                  >
-                    {p.desc}
-                  </p>
-
-                  <div
-                    style={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      gap: "0.35rem",
-                      marginBottom: "1.25rem",
-                    }}
-                  >
-                    {p.tags.map((t) => (
-                      <span key={t} className="ptag">
-                        {t}
+                      >
+                        {p.num}
                       </span>
-                    ))}
-                  </div>
+                      <span
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.3rem",
+                          fontSize: "0.7rem",
+                          fontWeight: 500,
+                          color:
+                            p.status === "Building"
+                              ? "var(--accent)"
+                              : p.status === "Live"
+                                ? "var(--accent-2)"
+                                : "var(--text-3)",
+                        }}
+                      >
+                        <span
+                          style={{
+                            width: "5px",
+                            height: "5px",
+                            borderRadius: "50%",
+                            background: "currentColor",
+                            display: "inline-block",
+                          }}
+                        />
+                        {p.status}
+                      </span>
+                    </div>
 
-                  <div style={{ display: "flex", gap: "0.6rem" }}>
-                    <a
-                      href={p.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="plink primary"
+                    <h3
+                      style={{
+                        fontFamily: "Bricolage Grotesque, sans-serif",
+                        fontSize: "1.15rem",
+                        fontWeight: 700,
+                        letterSpacing: "-0.02em",
+                        marginBottom: "0.6rem",
+                        color: "var(--text-1)",
+                      }}
                     >
-                      GitHub →
-                    </a>
+                      {p.title}
+                    </h3>
+                    <p
+                      style={{
+                        fontSize: "0.85rem",
+                        color: "var(--text-2)",
+                        lineHeight: 1.75,
+                        marginBottom: "1rem",
+                        flex: 1,
+                      }}
+                    >
+                      {p.desc}
+                    </p>
+
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: "0.35rem",
+                        marginBottom: "1.25rem",
+                      }}
+                    >
+                      {p.tags.map((t) => (
+                        <span key={t} className="ptag">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div style={{ display: "flex", gap: "0.6rem" }}>
+                      <a
+                        href={p.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="plink"
+                      >
+                        GitHub →
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
-        <div
-          className="reveal"
-          style={{ textAlign: "center", marginTop: "2.5rem" }}
-        >
-          <a
-            href="https://github.com/ssiddiquiii"
-            target="_blank"
-            rel="noreferrer"
-            className="cta-secondary"
+        {/* Navigation: arrows + dots */}
+        <div className="slider-nav reveal">
+          <button
+            className={`slider-arrow${atStart ? " disabled" : ""}`}
+            onClick={prev}
+            aria-label="Previous project"
           >
-            View All on GitHub →
-          </a>
+            <ChevronLeft />
+          </button>
+
+          <div className="slider-dots">
+            {Array.from({ length: totalPages }, (_, i) => (
+              <button
+                key={i}
+                className={`slider-dot${i === activePage ? " active" : ""}`}
+                onClick={() => scrollToPage(i)}
+                aria-label={`Go to page ${i + 1}`}
+              />
+            ))}
+          </div>
+
+          <button
+            className={`slider-arrow${atEnd ? " disabled" : ""}`}
+            onClick={next}
+            aria-label="Next project"
+          >
+            <ChevronRight />
+          </button>
         </div>
       </div>
     </section>

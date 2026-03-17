@@ -164,7 +164,7 @@ export const PROCESS_STEPS = [
     icon: "⚙️",
     num: "// step_03",
     title: "Backend API Build",
-    desc: "Build Express routes, middleware layers, controller logic, and authentication. Test every endpoint with Thunder Client before moving forward.",
+    desc: "Build Express routes, middleware layers, controller logic, and authentication. Test every endpoint with Postman before moving forward.",
   },
   {
     icon: "⚛️",
@@ -193,8 +193,8 @@ export const CONTACT_ITEMS = [
   {
     icon: "📧",
     label: "Email",
-    value: "sameed@samedsiddiqui.me",
-    href: "mailto:sameed@samedsiddiqui.me",
+    value: "sameed@sameedsiddiqui.me",
+    href: "mailto:sameed@sameedsiddiqui.me",
   },
   {
     icon: "🐙",
@@ -203,10 +203,10 @@ export const CONTACT_ITEMS = [
     href: "https://github.com/ssiddiquiii",
   },
   {
-    icon: "🌐",
-    label: "Portfolio",
-    value: "samedsiddiqui.me",
-    href: "https://samedsiddiqui.me",
+    icon: "💼",
+    label: "LinkedIn",
+    value: "linkedin.com/in/ssiddiquii",
+    href: "https://www.linkedin.com/in/ssiddiquii/",
   },
   { icon: "📍", label: "Location", value: "Karachi, Pakistan", href: null },
 ];
