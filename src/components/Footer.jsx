@@ -200,10 +200,8 @@ export default function Footer() {
             }}
           >
             <span style={{ color: "var(--accent)", opacity: 0.6 }}>//</span>
-            built_with:{" "}
-            <span style={{ color: "var(--accent)" }}>React</span>
-            <span style={{ color: "var(--border)" }}>+</span>
-            <span style={{ color: "var(--accent-2)" }}>passion</span>
+            sys.status:{" "}
+            <span style={{ color: "var(--accent-2)" }}>online</span>
             <span
               style={{
                 width: "5px",

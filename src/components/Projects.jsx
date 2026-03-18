@@ -61,6 +61,25 @@ const BugIcon = () => (
   </svg>
 );
 
+const NoteIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    width="44"
+    height="44"
+  >
+    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+    <polyline points="14 2 14 8 20 8" />
+    <line x1="16" y1="13" x2="8" y2="13" />
+    <line x1="16" y1="17" x2="8" y2="17" />
+    <line x1="10" y1="9" x2="8" y2="9" />
+  </svg>
+);
+
 const ActivityIcon = () => (
   <svg
     viewBox="0 0 24 24"
@@ -90,17 +109,23 @@ const ChevronRight = () => (
 );
 
 const ICON_MAP = {
-  video: {
-    component: <VideoIcon />,
-    accent: "#a78bfa",
-    bg: "rgba(167,139,250,0.12)",
-    border: "rgba(167,139,250,0.25)",
+  note: {
+    component: <NoteIcon />,
+    accent: "#D4D4D8",
+    bg: "rgba(212,212,216,0.12)",
+    border: "rgba(212,212,216,0.25)",
   },
   users: {
     component: <UsersIcon />,
     accent: "#34D399",
     bg: "rgba(52,211,153,0.12)",
     border: "rgba(52,211,153,0.25)",
+  },
+  video: {
+    component: <VideoIcon />,
+    accent: "#a78bfa",
+    bg: "rgba(167,139,250,0.12)",
+    border: "rgba(167,139,250,0.25)",
   },
   bug: {
     component: <BugIcon />,
@@ -269,9 +294,11 @@ export default function Projects() {
                           color:
                             p.status === "Building"
                               ? "var(--accent)"
-                              : p.status === "Live"
+                              : p.status === "Live" || p.status === "Completed"
                                 ? "var(--accent-2)"
-                                : "var(--text-3)",
+                                : p.status === "Planned"
+                                  ? "var(--accent-3)"
+                                  : "var(--text-3)",
                         }}
                       >
                         <span
