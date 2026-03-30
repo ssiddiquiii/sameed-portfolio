@@ -107,7 +107,7 @@ export const PROJECTS = [
     desc: "Full-stack MERN web application for secure note creation and editing, engineered with industry-standard practices including structured application logging, global exception handling, and robust unit testing.",
     tags: ["React", "Express", "MongoDB", "Node.js", "Pino", "Jest"],
     github: "https://github.com/ssiddiquiii/note-management-system",
-    live: "#",
+    live: "https://noteflow-app-2nqm.onrender.com/",
   },
   {
     emoji: "🏕️",

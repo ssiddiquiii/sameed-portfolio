@@ -362,6 +362,16 @@ export default function Projects() {
                       >
                         GitHub →
                       </a>
+                      {p.live !== "#" && (
+                        <a
+                          href={p.live}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="plink"
+                        >
+                          Live Demo →
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>
