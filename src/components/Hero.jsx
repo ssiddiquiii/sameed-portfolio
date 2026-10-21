@@ -1,192 +1,68 @@
-import { useEffect, useRef, useState } from "react";
+import { PROFILE, SOCIALS } from '../data'
 
-/* ── Animated counter hook ──────────────────────────────────────── */
-function useCountUp(target, duration = 1800, startOnMount = false) {
-  const [count, setCount] = useState(0);
-  const [triggered, setTriggered] = useState(startOnMount);
-  const ref = useRef(null);
-
-  // Trigger via IntersectionObserver
-  useEffect(() => {
-    if (!ref.current) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setTriggered(true);
-      },
-      { threshold: 0.5 },
-    );
-    obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, []);
-
-  // Run the count-up
-  useEffect(() => {
-    if (!triggered) return;
-    let start = null;
-    const step = (timestamp) => {
-      if (!start) start = timestamp;
-      const progress = Math.min((timestamp - start) / duration, 1);
-      // ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * target));
-      if (progress < 1) requestAnimationFrame(step);
-      else setCount(target);
-    };
-    requestAnimationFrame(step);
-  }, [triggered, target, duration]);
-
-  return { count, ref };
+const ICONS = {
+  GitHub: (
+    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+  ),
+  LinkedIn: (
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+  ),
+  YouTube: (
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+  ),
+  Email: (
+    <path d="M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5v-13zm2.2.3 7.8 6.1 7.8-6.1H4.2zM20 8.1l-7.4 5.8a1 1 0 0 1-1.2 0L4 8.1v10.4a.5.5 0 0 0 .5.5h15a.5.5 0 0 0 .5-.5V8.1z" />
+  ),
 }
 
-/* ── Single stat item ───────────────────────────────────────────── */
-function StatItem({ num, suffix = "+", label, delay = 0, divider }) {
-  const target = parseInt(num);
-  const { count, ref } = useCountUp(target, 1600);
-
-  return (
-    <div
-      ref={ref}
-      style={{
-        padding: "0 clamp(1.5rem,4vw,3rem)",
-        textAlign: "center",
-        borderRight: divider ? "1px solid var(--border)" : "none",
-        animation: `revealUp 0.7s var(--ease) ${delay}s both`,
-      }}
-    >
-      <div
-        className="stat-num"
-        style={{
-          fontVariantNumeric: "tabular-nums",
-          minWidth: "3ch",
-          display: "inline-block",
-        }}
-      >
-        {count}
-        {suffix}
-      </div>
-      <div
-        style={{
-          fontSize: "0.72rem",
-          color: "var(--text-3)",
-          letterSpacing: "0.08em",
-          textTransform: "uppercase",
-          marginTop: "0.25rem",
-          fontFamily: "Fira Code, monospace",
-        }}
-      >
-        {label}
-      </div>
-    </div>
-  );
-}
-
-/* ── Hero ───────────────────────────────────────────────────────── */
 export default function Hero() {
   return (
-    <section id="hero" className="hero">
-      <div className="hero-grid-bg" />
-      <div className="hero-orb hero-orb-1" />
-      <div className="hero-orb hero-orb-2" />
-      <div className="hero-orb hero-orb-3" />
+    <section id="top" className="hero">
+      <img
+        className="avatar"
+        src={PROFILE.avatar}
+        alt={PROFILE.name}
+        width="104"
+        height="104"
+      />
 
-      <div
-        style={{
-          position: "relative",
-          zIndex: 1,
-          textAlign: "center",
-          maxWidth: "900px",
-        }}
-      >
-        {/* Badge */}
-        <div className="hero-badge hero-stagger-1">
-          <span className="status-dot" />
-          available_for_work · karachi, pk
-        </div>
+      <div className="hero-info">
+        <h1 className="hero-name">{PROFILE.name}</h1>
+        <p className="hero-title">{PROFILE.title}</p>
+        <p className="hero-bio">{PROFILE.bio}</p>
+      </div>
 
-        {/* Name */}
-        <h1 className="hero-name hero-stagger-2">
-          <span style={{ display: "block", color: "var(--text-1)" }}>
-            Sameed
-          </span>
-          <span className="shimmer-text" style={{ display: "block" }}>
-            Siddiqui.
-          </span>
-        </h1>
-
-        {/* Role */}
-        <p
-          className="hero-stagger-3"
-          style={{
-            fontFamily: "Bricolage Grotesque, sans-serif",
-            fontSize: "clamp(1.1rem,2.5vw,1.6rem)",
-            fontWeight: 500,
-            color: "var(--text-2)",
-            marginBottom: "1.5rem",
-            letterSpacing: "-0.01em",
-          }}
-        >
-          MERN Stack <span style={{ color: "var(--accent)" }}>Developer</span>
-        </p>
-
-        {/* Description */}
-        <p
-          className="hero-stagger-4"
-          style={{
-            fontSize: "clamp(0.9rem,1.5vw,1.05rem)",
-            color: "var(--text-2)",
-            lineHeight: 1.85,
-            maxWidth: "580px",
-            margin: "0 auto 2.5rem",
-          }}
-        >
-          I engineer production-ready web applications — robust Node.js APIs,
-          scalable MongoDB architectures, and precise React interfaces. I care
-          about the{" "}
-          <em
-            style={{
-              color: "var(--text-1)",
-              fontStyle: "normal",
-              fontWeight: 600,
-            }}
+      <div className="social-row">
+        {SOCIALS.map((s) => (
+          <a
+            key={s.label}
+            href={s.href}
+            className="social-icon"
+            aria-label={s.label}
+            title={s.label}
+            {...(s.label !== 'Email' && { target: '_blank', rel: 'noopener noreferrer' })}
           >
-            why
-          </em>{" "}
-          behind every decision.
-        </p>
-
-        {/* CTAs */}
-        <div
-          className="hero-cta hero-stagger-5"
-          style={{
-            display: "flex",
-            gap: "1rem",
-            justifyContent: "center",
-            flexWrap: "wrap",
-            marginBottom: "4rem",
-          }}
-        >
-          <a href="#projects" className="cta-primary">
-            View My Work →
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              {ICONS[s.label]}
+            </svg>
           </a>
-          <a href="#contact" className="cta-secondary">
-            Let's Collaborate
+        ))}
+        {PROFILE.cv && (
+          <a
+            href={PROFILE.cv}
+            className="social-icon"
+            download
+            title="Download CV"
+            aria-label="Download CV"
+          >
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
           </a>
-        </div>
-
-        {/* Stats — dynamic counters */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexWrap: "wrap",
-          }}
-        >
-          <StatItem num="5" label="Projects Built" delay={0.65} divider />
-          <StatItem num="1" label="Year in Dev" delay={0.72} divider />
-          <StatItem num="13" label="Technologies" delay={0.79} />
-        </div>
+        )}
       </div>
     </section>
-  );
+  )
 }
