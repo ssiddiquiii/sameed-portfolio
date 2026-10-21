@@ -1,7 +1,7 @@
 export const PROFILE = {
   name: "Sameed Siddiqui",
-  title: "Software Engineer, Educator",
-  bio: "I build software and teach people how to build software. Focused on backend engineering, distributed REST APIs, and local-first systems.",
+  title: "Backend Engineer, Educator",
+  bio: "I build software and teach people how to build software. Passionate about backend engineering, web applications, and building reliable digital products.",
   avatar: "https://avatars.githubusercontent.com/u/99004747?v=4",
   email: "sameedsiddiqui9@gmail.com",
   cv: "/Sameed_Siddiqui_CV.pdf",
@@ -25,12 +25,12 @@ export const NAV_LINKS = [
 export const SKILLS = [
   {
     category: "Backend & Systems",
-    items: ["FastAPI", "Python", "Node.js", "Express", "REST APIs", "Stateless JWT", "C++"],
+    items: ["FastAPI", "Python", "Node.js", "Express", "REST APIs", "Stateless JWT"],
   },
   {
     category: "Generative AI & LLMs",
     items: [
-      "SLM Fine-Tuning (QLoRA)",
+      "SLM Fine-Tuning (QLoRA/LoRa)",
       "llama.cpp / GGUF (Local Inference)",
       "RAG Systems",
       "Azure AI Services",
@@ -62,14 +62,6 @@ export const PROJECTS = [
     tags: ["FastAPI", "Python", "C++", "MongoDB Atlas"],
   },
   {
-    title: "NoteFlow Management System",
-    desc: "Production-ready notes platform engineered with stateless JWT authentication, Bcrypt password hashing, structured Pino logging, global exception handling, and automated unit testing.",
-    domain: "noteflow-app-2nqm.onrender.com",
-    href: "https://noteflow-app-2nqm.onrender.com/",
-    github: "https://github.com/ssiddiquiii/note-management-system",
-    tags: ["Node.js", "Express", "MongoDB", "Jest", "Pino"],
-  },
-  {
     title: "FocusFlow",
     desc: "Local-first learning dashboard for distraction-free YouTube study. Features Dexie.js (IndexedDB) client persistence, timestamped note-taking, Zod validation, and offline service worker caching.",
     domain: "focus-flow-puce.vercel.app",
@@ -84,6 +76,14 @@ export const PROJECTS = [
     href: "https://zobia-monorepo.vercel.app",
     github: "https://github.com/ssiddiquiii/fleure-beauty-monorepo",
     tags: ["Next.js 14", "React Native", "Expo", "MongoDB"],
+  },
+  {
+    title: "NoteFlow Management System",
+    desc: "Production-ready notes platform engineered with stateless JWT authentication, Bcrypt password hashing, structured Pino logging, global exception handling, and automated unit testing.",
+    domain: "noteflow-app-2nqm.onrender.com",
+    href: "https://noteflow-app-2nqm.onrender.com/",
+    github: "https://github.com/ssiddiquiii/note-management-system",
+    tags: ["Node.js", "Express", "MongoDB", "Jest", "Pino"],
   },
 ];
 
