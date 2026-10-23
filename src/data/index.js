@@ -66,11 +66,11 @@ export const PROJECTS = [
   },
   {
     title: "FocusFlow",
-    desc: "Local-first learning dashboard for distraction-free YouTube study. Features Dexie.js (IndexedDB) client persistence, timestamped note-taking, Zod validation, and offline service worker caching.",
+    desc: "Distraction-free learning dashboard for focused YouTube study. Features Dexie.js (IndexedDB) client persistence for local state, timestamped note-taking, and schema-enforced Zod validation.",
     domain: "focus-flow-puce.vercel.app",
     href: "https://focus-flow-puce.vercel.app",
     github: "https://github.com/ssiddiquiii/FocusFlow",
-    tags: ["React 19", "Dexie.js", "IndexedDB", "Zod", "PWA"],
+    tags: ["React 19", "Dexie.js", "IndexedDB", "Zod", "Tailwind CSS"],
   },
   {
     title: "Fleure Beauty Monorepo",
