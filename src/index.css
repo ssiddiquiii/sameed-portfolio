@@ -1,7 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════
-   CLEAN ENGINEERING PORTFOLIO THEME (PIYUSH GARG STYLE)
-   Plain, pristine solid backgrounds (no grid/box patterns)
-   Max width 672px (max-w-2xl), mono navigation and labels
+   MINIMALIST ENGINEERING PORTFOLIO THEME
+   Solid dark/light mode tokens and typography
 ═══════════════════════════════════════════════════════════════ */
 
 :root,
@@ -93,14 +92,15 @@ button {
 
 /* ═══ NAVIGATION ═══ */
 .nav {
-  padding: 32px 0 24px;
+  padding: 28px 0 20px;
+  position: relative;
+  z-index: 50;
 }
 
 .nav-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
   gap: 12px;
 }
 
@@ -109,6 +109,7 @@ button {
   font-size: 14px;
   color: var(--text);
   letter-spacing: -0.01em;
+  text-decoration: none;
   transition: color 0.15s;
 }
 
@@ -116,16 +117,18 @@ button {
   color: var(--text-muted);
 }
 
-.nav-links {
+.nav-links-desktop {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
   font-family: "JetBrains Mono", monospace;
   font-size: 13px;
   color: var(--text-muted);
 }
 
 .nav-link {
+  color: var(--text-muted);
+  text-decoration: none;
   transition: color 0.15s;
 }
 
@@ -133,17 +136,97 @@ button {
   color: var(--text);
 }
 
+.nav-mobile-actions {
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+
 .theme-toggle {
   color: var(--text-muted);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px;
-  transition: color 0.15s;
+  padding: 6px;
+  border-radius: 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s, background-color 0.15s;
 }
 
 .theme-toggle:hover {
   color: var(--text);
+  background-color: var(--bg-hover);
+}
+
+.hamburger-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background-color: var(--badge-bg);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s, color 0.15s;
+}
+
+.hamburger-btn:hover {
+  border-color: var(--border-hover);
+  background-color: var(--bg-hover);
+}
+
+.mobile-menu-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--bg);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  padding: 10px 0 14px;
+  z-index: 40;
+}
+
+.mobile-menu-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobile-nav-link {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13.5px;
+  color: var(--text-dim);
+  padding: 10px 14px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link:active {
+  background-color: var(--badge-bg);
+  color: var(--text);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-down {
+  animation: slideDown 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* ═══ MAIN SECTIONS ═══ */
@@ -239,7 +322,7 @@ main {
   transform: translateY(-1px);
 }
 
-/* ═══ PRODUCT / PROJECT CARDS (PIYUSH EXACT STYLE) ═══ */
+/* ═══ PROJECTS ═══ */
 .card-stack {
   display: flex;
   flex-direction: column;
@@ -539,6 +622,140 @@ main {
   border-color: var(--text);
 }
 
+
+/* ═══ EXPERIENCE & EDUCATION ═══ */
+.exp-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.exp-item {
+  border: 1px solid var(--border);
+  padding: 16px;
+  border-radius: 6px;
+  background-color: var(--bg);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.exp-item:hover {
+  border-color: var(--border-hover);
+  background-color: var(--bg-hover);
+}
+
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.exp-title-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.exp-role {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+}
+
+.exp-org {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.exp-type {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  background-color: var(--badge-bg);
+  border: 1px solid var(--border);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.exp-period {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.exp-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.edu-section-head {
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+.section-sublabel {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.edu-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edu-item {
+  border: 1px solid var(--border);
+  padding: 14px 16px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  background-color: var(--bg);
+  transition: border-color 0.15s ease;
+}
+
+.edu-item:hover {
+  border-color: var(--border-hover);
+}
+
+.edu-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+}
+
+.edu-link {
+  color: var(--text);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.edu-link:hover {
+  text-decoration: underline;
+}
+
+.edu-meta {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
 /* ═══ FOOTER ═══ */
 footer {
   padding: 24px 0 40px;
@@ -552,10 +769,133 @@ footer {
   gap: 8px;
 }
 
-@media (max-width: 520px) {
+
+
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE DESIGN SYSTEM (TABLET & MOBILE)
+═══════════════════════════════════════════════════════════════ */
+
+/* Tablet & Mobile Screens (<= 768px) */
+@media (max-width: 768px) {
+  .nav-links-desktop {
+    display: none;
+  }
+
+  .nav-mobile-actions {
+    display: flex;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .nav {
+    padding: 20px 0 16px;
+  }
+
+  main {
+    gap: 40px;
+    padding-bottom: 48px;
+  }
+
+  .hero {
+    gap: 16px;
+    padding-top: 4px;
+  }
+
+  .avatar {
+    width: 92px;
+    height: 92px;
+  }
+
+  .hero-name {
+    font-size: 24px;
+  }
+
+  .hero-title {
+    font-size: 14.5px;
+  }
+
+  .hero-bio {
+    font-size: 15px;
+  }
+
+  .product-head {
+    align-items: flex-start;
+  }
+
+  .product-title {
+    font-size: 15px;
+  }
+
+  .product-card {
+    padding: 14px 16px;
+  }
+
+  .skill-row {
+    padding: 12px 14px;
+  }
+
   .exp-item {
     flex-direction: column;
     align-items: flex-start;
-    gap: 4px;
+    gap: 6px;
+  }
+}
+
+/* Small Mobile Phones (<= 480px) */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .avatar {
+    width: 82px;
+    height: 82px;
+  }
+
+  .hero-name {
+    font-size: 22px;
+  }
+
+  .hero-bio {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .social-row {
+    gap: 16px;
+  }
+
+  .product-card {
+    padding: 12px 14px;
+    gap: 6px;
+  }
+
+  .product-desc {
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+
+  .product-tag {
+    font-size: 10.5px;
+    padding: 2px 6px;
+  }
+
+  .skill-cat {
+    font-size: 10.5px;
+  }
+
+  .skill-pill {
+    font-size: 11px;
+    padding: 2px 6px;
+  }
+
+  footer {
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+    padding: 20px 0 32px;
   }
 }

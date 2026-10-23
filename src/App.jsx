@@ -1,7 +1,8 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-// import Activity from './components/Activity' // Hidden for now; uncomment when active contributions are ready
+// import Activity from './components/Activity'
 import Skills from './components/Skills'
+// import Experience from './components/Experience'
 import Work from './components/Work'
 import Courses from './components/Courses'
 import Contact from './components/Contact'
@@ -16,6 +17,7 @@ export default function App() {
           <Hero />
           {/* <Activity /> */}
           <Skills />
+          {/* <Experience /> */}
           <Work />
           <Courses />
           <Contact />

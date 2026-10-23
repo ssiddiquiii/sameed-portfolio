@@ -18,7 +18,7 @@ export default function Activity() {
 
   useEffect(() => {
     let cancelled = false
-    fetch('https://github-contributions-api.jogruber.de/v4/ssiddiquiii?y=last')
+    fetch('https:
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch contributions')
         return res.json()
@@ -29,7 +29,7 @@ export default function Activity() {
         }
       })
       .catch(() => {
-        // Fallback silently remains active
+        
       })
 
     return () => {
@@ -37,7 +37,7 @@ export default function Activity() {
     }
   }, [])
 
-  // Group days into columns of 7 days (Sunday - Saturday)
+  
   const { weeks, monthLabels } = useMemo(() => {
     const list = data?.contributions || []
     const cols = []
@@ -54,7 +54,7 @@ export default function Activity() {
       cols.push(current)
     }
 
-    // Map month names to the column index where they first appear
+    
     const months = {}
     let lastMonth = -1
     cols.forEach((col, idx) => {
@@ -82,8 +82,7 @@ export default function Activity() {
 
       <div className="heatmap-wrapper">
         <div className="heatmap-scroll">
-          {/* Month labels row aligned with week columns */}
-          <div className="heatmap-months-row">
+                    <div className="heatmap-months-row">
             {weeks.map((_, idx) => (
               <div key={idx} className="heatmap-month-slot">
                 {monthLabels[idx] && (
@@ -93,8 +92,7 @@ export default function Activity() {
             ))}
           </div>
 
-          {/* 53-week columns grid */}
-          <div className="heatmap-grid" role="grid" aria-label="Contribution Activity">
+                    <div className="heatmap-grid" role="grid" aria-label="Contribution Activity">
             {weeks.map((week, wIdx) => (
               <div key={wIdx} className="heatmap-week-col">
                 {week.map((day) => {
@@ -113,8 +111,7 @@ export default function Activity() {
           </div>
         </div>
 
-        {/* Legend */}
-        <div className="heatmap-legend">
+                <div className="heatmap-legend">
           <span className="legend-label">less</span>
           <div className="legend-cells">
             <span className="heatmap-cell level-0" aria-hidden="true" />

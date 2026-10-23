@@ -1,7 +1,7 @@
 export const PROFILE = {
   name: "Sameed Siddiqui",
-  title: "Backend Engineer, Educator",
-  bio: "I build software and teach people how to build software. Passionate about backend engineering, web applications, and building reliable digital products.",
+  title: "Backend & Applied AI Engineer",
+  bio: "I architect high-performance backends and deploy domain-adapted Small Language Models (SLMs) at the edge. Passionate about offline-first architectures, local inference (llama.cpp), and distributed cloud systems.",
   avatar: "https://avatars.githubusercontent.com/u/99004747?v=4",
   email: "sameedsiddiqui9@gmail.com",
   cv: "/Sameed_Siddiqui_CV.pdf",
@@ -17,6 +17,7 @@ export const SOCIALS = [
 
 export const NAV_LINKS = [
   { label: "stack", href: "#skills" },
+  // { label: "experience", href: "#experience" },
   { label: "projects", href: "#projects" },
   { label: "courses", href: "#courses" },
   { label: "contact", href: "#contact" },
@@ -30,7 +31,9 @@ export const SKILLS = [
   {
     category: "Generative AI & LLMs",
     items: [
-      "SLM Fine-Tuning (QLoRA/LoRa)",
+      "SLM Fine-Tuning (QLoRA/LoRA)",
+      "DeepEval (Evaluation & Benchmarks)",
+      "Unsloth & Hugging Face",
       "llama.cpp / GGUF (Local Inference)",
       "RAG Systems",
       "Azure AI Services",
@@ -55,11 +58,11 @@ export const SKILLS = [
 
 export const PROJECTS = [
   {
-    title: "Car Specialist",
-    desc: "An offline automotive diagnostics system. Powered by a modular FastAPI backend, local C++ model inference via llama.cpp, and offline-first state synchronization with MongoDB Atlas.",
+    title: "Car Specialist AI (On-Device SLM)",
+    desc: "Offline automotive diagnostic system powered by a fine-tuned Google Gemma 4 (2B) model. Quantized to GGUF Q4_K_M (~1.68 GB), running 100% offline on Android CPU via native C++ llama.cpp bindings, benchmarked at 98% relevancy via DeepEval.",
     domain: "github.com/ssiddiquiii/car-specialist-gpt",
     href: "https://github.com/ssiddiquiii/car-specialist-gpt",
-    tags: ["FastAPI", "Python", "C++", "MongoDB Atlas"],
+    tags: ["Gemma 2B", "QLoRA", "llama.cpp", "FastAPI", "React Native", "DeepEval"],
   },
   {
     title: "FocusFlow",
@@ -102,28 +105,28 @@ export const EXPERIENCE = [
     role: "Generative AI Engineer",
     org: "AI SLM Project",
     type: "Contract",
-    period: "2026 — Present",
+    period: "2026 – Present",
     desc: "Fine-tuning domain-specific models with QLoRA/4-bit quantization and integrating offline C++ inference engines into FastAPI backend services.",
   },
   {
     role: "Azure AI Fundamentals Trainer",
     org: "Online Training",
     type: "Part-time",
-    period: "2026 — Present",
+    period: "2026 – Present",
     desc: "Delivering certification-oriented cloud curriculum, live architectural demonstrations, and YouTube educational modules.",
   },
   {
     role: "MERN Stack Developer Intern",
     org: "10Pearls Pakistan",
     type: "Internship",
-    period: "2025 — 2026",
+    period: "2025 – 2026",
     desc: "Built full-stack applications with Node/Express APIs, MongoDB schemas, JWT authentication, and automated test suites.",
   },
   {
     role: "CMS Developer Intern",
     org: "Digital Auxilius",
     type: "Internship",
-    period: "2024 — 2025",
+    period: "2024 – 2025",
     desc: "Engineered responsive frontend interfaces, integrated third-party REST endpoints, and resolved production bugs (promoted from Apprentice).",
   },
   {
@@ -138,17 +141,17 @@ export const EXPERIENCE = [
 export const EDUCATION = [
   {
     title: "Microsoft Certified: Azure AI Fundamentals",
-    meta: "Microsoft · Credential ID: A272116E5864EA58",
+    meta: "Microsoft • Credential ID: A272116E5864EA58",
     href: "https://www.linkedin.com/in/ssiddiquii/",
   },
   {
     title: "Higher National Diploma, Computer Software Engineering",
-    meta: "Aptech Pakistan (2020 — 2023) · Grade B+",
+    meta: "Aptech Pakistan (2020 – 2023) • Grade B+",
     href: null,
   },
   {
     title: "Bachelor of Business Administration (BBA)",
-    meta: "Iqra University (2022 — 2027) · CGPA 3.61",
+    meta: "Iqra University (2022 – 2027) • CGPA 3.61",
     href: null,
   },
 ];
